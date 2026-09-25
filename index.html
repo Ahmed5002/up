@@ -1,79 +1,472 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalcHub - حاسبات مجانية عبر الإنترنت</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalcHub — حاسبات مجانية عبر الإنترنت | عملات، ذهب، BMI، قروض</title>
+  <meta name="description" content="حزمة حاسبات مجانية شاملة عبر الإنترنت تضم محول عملات بأسعار حية، أسعار الذهب، حاسبة مؤشر كتلة الجسم (BMI)، أقساط القروض، الخصومات، الميزانية، التوفير، الوقود، والكهرباء بدون تسجيل.">
+  <meta name="keywords" content="حاسبة, محول العملات, سعر الذهب, آلة حاسبة, BMI calculator, loan calculator, حاسبة القروض, حاسبة الخصم">
+  
+  <!-- Open Graph / Pinterest Rich Pins Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CalcHub">
+  <meta property="og:url" content="https://calchub.app/">
+  <meta property="og:title" content="CalcHub — Free Online Calculators">
+  <meta property="og:description" content="Free online calculators for Currency, Gold, BMI, Loans & More.">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 14H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2z'/></svg>">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .modal { display: none; }
+    .modal.active { display: flex; }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- Header -->
-    <header class="w-full bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-xs">
-        <div class="flex items-center gap-2">
-            <span class="text-2xl font-black text-indigo-600">.CalcHub</span>
+  <!-- Header -->
+  <header class="bg-blue-600 text-white shadow-md py-4 px-6">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold flex items-center gap-2">
+        <span class="text-3xl">🧮</span> CalcHub
+      </h1>
+      <p class="text-sm opacity-90 hidden sm:block">منصة الحاسبات الذكية والمباشرة</p>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-5xl w-full mx-auto p-4 md:p-6 flex-grow">
+    
+    <!-- Calculator Selection Tabs -->
+    <div class="flex border-b border-slate-200 mb-6 bg-white rounded-t-lg shadow-sm overflow-x-auto">
+      <button onclick="switchTab('currency')" id="tab-currency" class="tab-btn px-5 py-3 font-semibold text-blue-600 border-b-2 border-blue-600 focus:outline-none whitespace-nowrap">🔀 محول العملات</button>
+      <button onclick="switchTab('gold')" id="tab-gold" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">🪙 أسعار الذهب</button>
+      <button onclick="switchTab('bmi')" id="tab-bmi" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">⚖️ كتلة الجسم (BMI)</button>
+      <button onclick="switchTab('loan')" id="tab-loan" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">🏦 القروض</button>
+      <button onclick="switchTab('discount')" id="tab-discount" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">🏷️ الخصومات</button>
+      <button onclick="switchTab('budget')" id="tab-budget" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">📊 الميزانية</button>
+      <button onclick="switchTab('fuel')" id="tab-fuel" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">⛽ الوقود</button>
+      <button onclick="switchTab('elec')" id="tab-elec" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">⚡ الكهرباء</button>
+      <button onclick="switchTab('savings')" id="tab-savings" class="tab-btn px-5 py-3 font-semibold text-slate-500 hover:text-blue-600 focus:outline-none whitespace-nowrap">💰 التوفير</button>
+    </div>
+
+    <!-- 1. Currency Converter (Live API) -->
+    <section id="currency" class="tab-content active bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">محول العملات المباشر</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">المبلغ</label>
+          <input type="number" id="curr-amount" value="100" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-        <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
-            <a href="/privacy.html" class="hover:text-indigo-600 transition">سياسة الخصوصية</a>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-16 text-center flex-grow flex flex-col items-center justify-center">
-        
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full mb-6 border border-indigo-100">
-            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-            أرقام أوضح، يوم أَبسَط.
+        <div>
+          <label class="block mb-2 text-sm font-medium">من</label>
+          <select id="curr-from" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="USD">دولار أمريكي (USD)</option>
+            <option value="EUR">يورو (EUR)</option>
+            <option value="SAR">ريال سعودي (SAR)</option>
+            <option value="EGP">جنيه مصري (EGP)</option>
+            <option value="AED">درهم إماراتي (AED)</option>
+            <option value="KWD">دينار كويتي (KWD)</option>
+          </select>
         </div>
-
-        <!-- Heading -->
-        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-4">
-            حسابات كل يوم.<br>
-            <span class="text-indigo-600">ببساطة أكثر.</span>
-        </h1>
-
-        <p class="text-slate-600 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
-            من ميزانية الشهر لقرار الشراء الجاي. حاسبات مفيدة بتخلي الأرقام أسهل، في أي مكان في العالم.
-        </p>
-
-        <!-- Search Bar -->
-        <div class="w-full max-w-xl relative mb-8">
-            <input type="text" placeholder="Search for a calculator — e.g. currency, BMI, loan..." 
-                   class="w-full px-5 py-4 rounded-2xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right pr-12 text-sm bg-white">
-            <svg class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+        <div>
+          <label class="block mb-2 text-sm font-medium">إلى</label>
+          <select id="curr-to" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="SAR">ريال سعودي (SAR)</option>
+            <option value="USD">دولار أمريكي (USD)</option>
+            <option value="EUR">يورو (EUR)</option>
+            <option value="EGP">جنيه مصري (EGP)</option>
+            <option value="AED">درهم إماراتي (AED)</option>
+            <option value="KWD">دينار كويتي (KWD)</option>
+          </select>
         </div>
+      </div>
+      <button onclick="convertCurrency()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">تحويل لحظي</button>
+      <div id="curr-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
 
-        <!-- Tags -->
-        <div class="flex flex-wrap justify-center gap-2 max-w-2xl">
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">BMI calculator</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Gold price</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Currency converter</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Percentage</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Discount calculator</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Loan calculator</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Grades</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Age calculator</span>
-            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Savings</span>
+    <!-- 2. Gold Price Calculator (Live API) -->
+    <section id="gold" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة الذهب (تحديث حي للأسعار)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">الوزن (جرام)</label>
+          <input type="number" id="gold-weight" value="10" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-full bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
-        <div class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>© 2026 CalcHub. جميع الحقوق محفوظة.</p>
-            <div>
-                <a href="/privacy.html" class="hover:underline text-indigo-600 font-medium">سياسة الخصوصية (Privacy Policy)</a>
-            </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">العيار</label>
+          <select id="gold-karat" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="24">عيار 24</option>
+            <option value="22">عيار 22</option>
+            <option value="21">عيار 21</option>
+            <option value="18">عيار 18</option>
+          </select>
         </div>
-    </footer>
+        <div>
+          <label class="block mb-2 text-sm font-medium">العملة للحساب</label>
+          <select id="gold-currency" onchange="fetchLiveGold()" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="USD">دولار أمريكي (USD)</option>
+            <option value="SAR">ريال سعودي (SAR)</option>
+            <option value="EGP">جنيه مصري (EGP)</option>
+            <option value="AED">درهم إماراتي (AED)</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-3 text-xs text-slate-500" id="gold-live-info">جاري جلب سعر أونصة الذهب عالمياً...</div>
+      <button onclick="calculateGold()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب القيمة الإجمالية</button>
+      <div id="gold-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
 
+    <!-- 3. BMI Calculator -->
+    <section id="bmi" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة مؤشر كتلة الجسم (BMI)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">الوزن (كجم)</label>
+          <input type="number" id="bmi-weight" placeholder="75" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">الطول (سم)</label>
+          <input type="number" id="bmi-height" placeholder="175" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateBMI()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب المؤشر</button>
+      <div id="bmi-result" class="mt-6 p-4 rounded-md hidden"></div>
+    </section>
+
+    <!-- 4. Loan Calculator -->
+    <section id="loan" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة القروض والأقساط</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">مبلغ القرض</label>
+          <input type="number" id="loan-amount" placeholder="100000" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">الفائدة السنوية (%)</label>
+          <input type="number" step="0.1" id="loan-rate" placeholder="5" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">المدة (سنوات)</label>
+          <input type="number" id="loan-years" placeholder="5" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateLoan()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب القسط</button>
+      <div id="loan-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+    <!-- 5. Discount Calculator -->
+    <section id="discount" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة الخصم والخصومات</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">السعر الأصلي</label>
+          <input type="number" id="disc-price" placeholder="250" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">نسبة الخصم (%)</label>
+          <input type="number" id="disc-percent" placeholder="20" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateDiscount()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب السعر النهائي</button>
+      <div id="disc-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+    <!-- 6. Budget Calculator -->
+    <section id="budget" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة الميزانية الشهرية</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">الدخل الشهري</label>
+          <input type="number" id="bg-income" placeholder="5000" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">المصاريف الشهرية</label>
+          <input type="number" id="bg-expenses" placeholder="3500" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateBudget()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">تحليل الميزانية</button>
+      <div id="budget-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+    <!-- 7. Fuel Calculator -->
+    <section id="fuel" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة تكلفة الوقود</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">المسافة (كم)</label>
+          <input type="number" id="fuel-dist" placeholder="300" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">الاستهلاك (لتر/100كم)</label>
+          <input type="number" id="fuel-rate" placeholder="8" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">سعر اللتر</label>
+          <input type="number" id="fuel-price" placeholder="2.3" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateFuel()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب التكلفة</button>
+      <div id="fuel-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+    <!-- 8. Electricity Calculator -->
+    <section id="elec" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة استهلاك الكهرباء</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">قدرة الجهاز (واط - Watt)</label>
+          <input type="number" id="elec-watts" placeholder="1500" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">ساعات التشغيل/يومياً</label>
+          <input type="number" id="elec-hours" placeholder="5" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">سعر الكيلوواط (kWh)</label>
+          <input type="number" id="elec-price" placeholder="0.18" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateElec()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب الاستهلاك الشهرى</button>
+      <div id="elec-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+    <!-- 9. Savings Calculator -->
+    <section id="savings" class="tab-content bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-slate-700">حاسبة التوفير للهدف المالي</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium">المبلغ المستهدف</label>
+          <input type="number" id="sav-target" placeholder="50000" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium">الادخار الشهري</label>
+          <input type="number" id="sav-monthly" placeholder="2000" class="w-full p-2.5 border rounded-md outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+      <button onclick="calculateSavings()" class="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-md hover:bg-blue-700 transition">احسب المدة المطلوبة</button>
+      <div id="sav-result" class="mt-6 p-4 rounded-md bg-slate-100 hidden"></div>
+    </section>
+
+  </main>
+
+  <!-- Legal Modals (دمج الصفحات لتجنب أخطاء 404 والقبول في Pinterest) -->
+  <div id="privacy-modal" class="modal fixed inset-0 bg-slate-900/60 items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-2xl w-full p-6 rounded-lg shadow-lg max-h-[80vh] overflow-y-auto">
+      <h3 class="text-xl font-bold mb-3 text-slate-800">سياسة الخصوصية (Privacy Policy)</h3>
+      <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+        في CalcHub، نلتزم بحماية خصوصيتك. نحن لا نقوم بتخزين أو جمع أي بيانات شخصية أو معلومات مالية أدخلتها في أدوات الحاسبة. جميع العمليات الحسابية تتم مباشرة داخل متصفحك.
+      </p>
+      <button onclick="closeModal('privacy-modal')" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">إغلاق</button>
+    </div>
+  </div>
+
+  <div id="terms-modal" class="modal fixed inset-0 bg-slate-900/60 items-center justify-center p-4 z-50">
+    <div class="bg-white max-w-2xl w-full p-6 rounded-lg shadow-lg max-h-[80vh] overflow-y-auto">
+      <h3 class="text-xl font-bold mb-3 text-slate-800">الشروط والأحكام (Terms of Service)</h3>
+      <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+        الحاسبات المقدمة في موقع CalcHub هي لأغراض استرشادية فقط. رغم أننا نعتمد على بيانات وأسعار حية ومباشرة للذهب والعملات، إلا أننا ننصح دائمًا بالتحقق من المصادر الرسمية قبل اتخاذ أي قرارات مالية.
+      </p>
+      <button onclick="closeModal('terms-modal')" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-slate-400 py-6 text-center text-sm">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p>© 2026 CalcHub. جميع الحقوق محفوظة.</p>
+      <div class="flex gap-4">
+        <button onclick="openModal('privacy-modal')" class="hover:text-white transition">سياسة الخصوصية</button>
+        <button onclick="openModal('terms-modal')" class="hover:text-white transition">الشروط والأحكام</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    let currentGoldGram24Price = 0;
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+        el.classList.add('text-slate-500');
+      });
+
+      document.getElementById(tabId).classList.add('active');
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      activeBtn.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+      activeBtn.classList.remove('text-slate-500');
+    }
+
+    async function convertCurrency() {
+      const amount = parseFloat(document.getElementById('curr-amount').value);
+      const from = document.getElementById('curr-from').value;
+      const to = document.getElementById('curr-to').value;
+      const resultDiv = document.getElementById('curr-result');
+
+      if (!amount || amount <= 0) return alert('أدخل مبلغاً صحيحاً');
+
+      try {
+        const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+        const data = await res.json();
+        const rate = data.rates[to];
+        const total = (amount * rate).toFixed(2);
+
+        resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">${amount} ${from} = <span class="text-blue-600">${total} ${to}</span></p><p class="text-xs text-slate-500 mt-1">سعر الصرف اللحظي: 1 ${from} = ${rate.toFixed(4)} ${to}</p>`;
+        resultDiv.classList.remove('hidden');
+      } catch (e) {
+        alert('تعذر اتصال الـ API، يرجى المحاولة ثانية.');
+      }
+    }
+
+    async function fetchLiveGold() {
+      const infoDiv = document.getElementById('gold-live-info');
+      const currency = document.getElementById('gold-currency').value;
+      infoDiv.innerText = "جاري تحديث سعر الذهب المباشر...";
+
+      try {
+        const goldRes = await fetch('https://api.gold-api.com/price/XAU');
+        const goldData = await goldRes.json();
+        const ounceUSD = goldData.price;
+        const gramUSD = ounceUSD / 31.1035;
+
+        const currRes = await fetch('https://open.er-api.com/v6/latest/USD');
+        const currData = await currRes.json();
+        const rate = currData.rates[currency];
+
+        currentGoldGram24Price = gramUSD * rate;
+        infoDiv.innerText = `السعر اللحظي للجرام عيار 24: ${currentGoldGram24Price.toFixed(2)} ${currency}`;
+      } catch (e) {
+        infoDiv.innerText = "تعذر جلب السعر المباشر للذهب آلياً.";
+      }
+    }
+
+    function calculateGold() {
+      const weight = parseFloat(document.getElementById('gold-weight').value);
+      const karat = parseFloat(document.getElementById('gold-karat').value);
+      const currency = document.getElementById('gold-currency').value;
+      const resultDiv = document.getElementById('gold-result');
+
+      if (!weight || !currentGoldGram24Price) return alert('برجاء التأكد من إدخال الوزن وتوفر الاتصال بالإنترنت');
+
+      const karatPrice = currentGoldGram24Price * (karat / 24);
+      const total = weight * karatPrice;
+
+      resultDiv.innerHTML = `
+        <p class="font-bold text-lg text-slate-800">إجمالي القيمة: <span class="text-amber-600">${total.toFixed(2)} ${currency}</span></p>
+        <p class="text-sm text-slate-600 mt-1">سعر الجرام لعيار ${karat}: ${karatPrice.toFixed(2)} ${currency}</p>
+      `;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('bmi-weight').value);
+      const heightCm = parseFloat(document.getElementById('bmi-height').value);
+      const resultDiv = document.getElementById('bmi-result');
+
+      if (!weight || !heightCm) return alert('أدخل الوزن والطول بشكل صحيح');
+      const heightM = heightCm / 100;
+      const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+      let status = '', colorClass = '';
+      if (bmi < 18.5) { status = 'نقص في الوزن (نحافة)'; colorClass = 'bg-yellow-100 text-yellow-800'; }
+      else if (bmi < 25) { status = 'وزن طبيعي ومثالي'; colorClass = 'bg-green-100 text-green-800'; }
+      else if (bmi < 30) { status = 'زيادة في الوزن'; colorClass = 'bg-orange-100 text-orange-800'; }
+      else { status = 'سمنة'; colorClass = 'bg-red-100 text-red-800'; }
+
+      resultDiv.className = `mt-6 p-4 rounded-md ${colorClass}`;
+      resultDiv.innerHTML = `<p class="font-bold text-lg">مؤشر كتلة الجسم: ${bmi}</p><p>التصنيف: ${status}</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateLoan() {
+      const P = parseFloat(document.getElementById('loan-amount').value);
+      const annualRate = parseFloat(document.getElementById('loan-rate').value);
+      const years = parseFloat(document.getElementById('loan-years').value);
+      const resultDiv = document.getElementById('loan-result');
+
+      if (!P || !annualRate || !years) return alert('أدخل كامل بيانات القرض');
+      const r = (annualRate / 100) / 12;
+      const n = years * 12;
+      const monthlyPayment = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">القسط الشهري: <span class="text-blue-600">${monthlyPayment.toFixed(2)}</span></p><p class="text-sm mt-1">الإجمالي المسدد: ${(monthlyPayment * n).toFixed(2)}</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateDiscount() {
+      const price = parseFloat(document.getElementById('disc-price').value);
+      const percent = parseFloat(document.getElementById('disc-percent').value);
+      const resultDiv = document.getElementById('disc-result');
+
+      if (!price || isNaN(percent)) return alert('أدخل بيانات الخصم بشكل صحيح');
+      const saved = (price * percent) / 100;
+      const finalPrice = price - saved;
+
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">السعر النهائي: <span class="text-green-600">${finalPrice.toFixed(2)}</span></p><p class="text-sm text-slate-600 mt-1">مقدار التوفير: ${saved.toFixed(2)}</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateBudget() {
+      const inc = parseFloat(document.getElementById('bg-income').value);
+      const exp = parseFloat(document.getElementById('bg-expenses').value);
+      const resultDiv = document.getElementById('budget-result');
+
+      if (!inc || isNaN(exp)) return alert('أدخل الدخل والمصاريف');
+      const net = inc - exp;
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">الفائض الصافي: <span class="${net>=0?'text-green-600':'text-red-600'}">${net.toFixed(2)}</span></p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateFuel() {
+      const dist = parseFloat(document.getElementById('fuel-dist').value);
+      const rate = parseFloat(document.getElementById('fuel-rate').value);
+      const price = parseFloat(document.getElementById('fuel-price').value);
+      const resultDiv = document.getElementById('fuel-result');
+
+      if (!dist || !rate || !price) return alert('أدخل تفاصيل الرحلة والوقود');
+      const liters = (dist / 100) * rate;
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">التكلفة التقديرية: <span class="text-blue-600">${(liters * price).toFixed(2)}</span></p><p class="text-sm text-slate-600">الوقود المطلوبة: ${liters.toFixed(1)} لتر</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateElec() {
+      const w = parseFloat(document.getElementById('elec-watts').value);
+      const h = parseFloat(document.getElementById('elec-hours').value);
+      const p = parseFloat(document.getElementById('elec-price').value);
+      const resultDiv = document.getElementById('elec-result');
+
+      if (!w || !h || !p) return alert('أدخل قدرة الجهاز والسعر');
+      const monthlyKWh = ((w * h) / 1000) * 30;
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">التكلفة الشهرية للتشغيل: <span class="text-blue-600">${(monthlyKWh * p).toFixed(2)}</span></p><p class="text-sm text-slate-600">الاستهلاك: ${monthlyKWh.toFixed(1)} كيلوواط/ساعة</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    function calculateSavings() {
+      const target = parseFloat(document.getElementById('sav-target').value);
+      const monthly = parseFloat(document.getElementById('sav-monthly').value);
+      const resultDiv = document.getElementById('sav-result');
+
+      if (!target || !monthly || monthly <= 0) return alert('أدخل مبالغ التوفير الصحيحة');
+      const months = Math.ceil(target / monthly);
+      resultDiv.innerHTML = `<p class="font-bold text-lg text-slate-800">ستصل لهدفك خلال: <span class="text-green-600">${months} شهراً</span></p><p class="text-sm text-slate-600 mt-1">ما يعادل ${(months/12).toFixed(1)} سنة.</p>`;
+      resultDiv.classList.remove('hidden');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchLiveGold();
+    });
+  </script>
 </body>
 </html>
