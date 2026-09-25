@@ -3,15 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalcHub</title>
+    <title>CalcHub - حاسبات مجانية عبر الإنترنت</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        a { color: #0070f3; text-decoration: none; font-weight: bold; }
+        body { font-family: 'Tajawal', sans-serif; }
     </style>
 </head>
-<body>
-    <h1>مرحباً بك في CalcHub</h1>
-    <p>حاسبات مجانية عبر الإنترنت</p>
-    <p><a href="/privacy.html">سياسة الخصوصية (Privacy Policy)</a></p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="w-full bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-xs">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-indigo-600">.CalcHub</span>
+        </div>
+        <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
+            <a href="/privacy.html" class="hover:text-indigo-600 transition">سياسة الخصوصية</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-16 text-center flex-grow flex flex-col items-center justify-center">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full mb-6 border border-indigo-100">
+            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+            أرقام أوضح، يوم أَبسَط.
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-4">
+            حسابات كل يوم.<br>
+            <span class="text-indigo-600">ببساطة أكثر.</span>
+        </h1>
+
+        <p class="text-slate-600 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
+            من ميزانية الشهر لقرار الشراء الجاي. حاسبات مفيدة بتخلي الأرقام أسهل، في أي مكان في العالم.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="w-full max-w-xl relative mb-8">
+            <input type="text" placeholder="Search for a calculator — e.g. currency, BMI, loan..." 
+                   class="w-full px-5 py-4 rounded-2xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right pr-12 text-sm bg-white">
+            <svg class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap justify-center gap-2 max-w-2xl">
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">BMI calculator</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Gold price</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Currency converter</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Percentage</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Discount calculator</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Loan calculator</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Grades</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Age calculator</span>
+            <span class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs rounded-xl hover:border-indigo-500 cursor-pointer transition">Savings</span>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>© 2026 CalcHub. جميع الحقوق محفوظة.</p>
+            <div>
+                <a href="/privacy.html" class="hover:underline text-indigo-600 font-medium">سياسة الخصوصية (Privacy Policy)</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
