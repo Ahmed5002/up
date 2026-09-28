@@ -1,438 +1,348 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CalcHub — حاسبات ذكية وعصرية</title>
-  <meta name="description" content="حزمة حاسبات مجانية شاملة عبر الإنترنت تضم محول عملات بأسعار حية، أسعار الذهب، BMI، والقروض.">
-  
-  <meta name="p:domain_verify" content="أدخل_كود_بينتريست_هنا"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcHub - مركز الحاسبات الذكي والتفاعلي</title>
+    <meta name="description" content="مجموعة شاملة من الحاسبات الدقيقة للأغراض اليومية والمالية والصحية.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { tajawal: ['Tajawal', 'sans-serif'] },
-          animation: {
-            'slide-up': 'slideUp 0.5s ease-out'
-          },
-          keyframes: {
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' }
-            }
-          }
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
         }
-      }
-    }
-  </script>
-
-  <style>
-    body { 
-      font-family: 'Tajawal', sans-serif; 
-      background: radial-gradient(circle at top, #1e1b4b 0%, #020617 100%);
-      background-attachment: fixed;
-    }
-    
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    
-    .glass-card {
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-    
-    .modern-input {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      transition: all 0.3s ease;
-    }
-    .modern-input:focus {
-      outline: none;
-      border-color: #6366f1;
-      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-      background: rgba(0, 0, 0, 0.4);
-    }
-    
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: slideUp 0.4s ease-out forwards; }
-  </style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body class="text-slate-200 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
-  <header class="glass-card sticky top-0 z-40 border-b border-white/5">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 text-2xl">
-          ⚡
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <span class="font-bold text-white text-xl">∑</span>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">CalcHub</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <a href="#calculators" class="hover:text-indigo-400 transition-colors">الحاسبات</a>
+                <a href="#about" class="hover:text-indigo-400 transition-colors">عن الموقع</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="langToggle" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-xs font-semibold hover:bg-slate-700 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-globe text-indigo-400"></i>
+                    <span>AR / EN</span>
+                </button>
+            </div>
         </div>
-        <div>
-          <h1 class="text-2xl font-black bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent tracking-wide">CalcHub</h1>
-          <p class="text-xs text-indigo-300/70 font-medium">حساباتك بلمسة عصرية</p>
+    </header>
+
+    <!-- Main Section -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" id="calculators">
+        
+        <!-- Header Info -->
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">مركز الحاسبات الذكي والتفاعلي</h1>
+            <p class="text-slate-400 text-base sm:text-lg">مجموعة شاملة من الحاسبات الدقيقة والأدوات الحسابية اليومية والمالية والصحية.</p>
         </div>
-      </div>
-      <!-- زر الخصوصية المحدث للعمل كـ Link -->
-      <a href="/privacy.html" class="text-sm font-semibold text-slate-400 hover:text-white transition flex items-center justify-center bg-white/5 px-4 py-2 rounded-xl border border-white/5 hover:bg-white/10">
-        الخصوصية
-      </a>
-    </div>
-  </header>
 
-  <main class="max-w-5xl w-full mx-auto p-4 md:p-6 flex-grow my-6">
-    
-    <!-- Navigation Tabs -->
-    <div class="glass-card rounded-2xl p-2 mb-10 overflow-x-auto no-scrollbar flex gap-2 relative z-10 w-full snap-x">
-      <button onclick="switchTab('currency')" id="tab-currency" class="tab-btn active px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg whitespace-nowrap snap-center transition-all duration-300">🔀 العملات</button>
-      <button onclick="switchTab('gold')" id="tab-gold" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">🪙 الذهب</button>
-      <button onclick="switchTab('bmi')" id="tab-bmi" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">⚖️ كتلة الجسم</button>
-      <button onclick="switchTab('loan')" id="tab-loan" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">🏦 القروض</button>
-      <button onclick="switchTab('discount')" id="tab-discount" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">🏷️ الخصومات</button>
-      <button onclick="switchTab('budget')" id="tab-budget" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">📊 الميزانية</button>
-      <button onclick="switchTab('fuel')" id="tab-fuel" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">⛽ الوقود</button>
-      <button onclick="switchTab('elec')" id="tab-elec" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">⚡ الكهرباء</button>
-      <button onclick="switchTab('savings')" id="tab-savings" class="tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300">💰 التوفير</button>
-    </div>
+        <!-- Navigation Tabs -->
+        <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+            <button onclick="switchTab(this, 'all')" class="tab-btn px-4 py-2 rounded-xl bg-indigo-600 text-white font-medium text-sm whitespace-nowrap transition-all shadow-lg shadow-indigo-600/30">عرض الكل</button>
+            <button onclick="switchTab(this, 'basic')" class="tab-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium text-sm whitespace-nowrap transition-all">أساسية</button>
+            <button onclick="switchTab(this, 'bmi')" class="tab-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium text-sm whitespace-nowrap transition-all">كتلة الجسم (BMI)</button>
+            <button onclick="switchTab(this, 'loan')" class="tab-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium text-sm whitespace-nowrap transition-all">القروض والتمويل</button>
+            <button onclick="switchTab(this, 'percentage')" class="tab-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium text-sm whitespace-nowrap transition-all">النسب المئوية</button>
+            <button onclick="switchTab(this, 'age')" class="tab-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium text-sm whitespace-nowrap transition-all">حساب العمر</button>
+        </div>
 
-    <!-- Currency Section -->
-    <section id="currency" class="tab-content active glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">🔀 محول العملات المباشر</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="curr-amount" value="100" class="modern-input rounded-xl p-4 w-full">
-        <select id="curr-from" class="modern-input rounded-xl p-4 w-full">
-          <option value="USD" class="bg-slate-900 text-white">USD — دولار أمريكي</option>
-          <option value="EUR" class="bg-slate-900 text-white">EUR — يورو</option>
-          <option value="SAR" class="bg-slate-900 text-white">SAR — ريال سعودي</option>
-          <option value="EGP" class="bg-slate-900 text-white">EGP — جنيه مصري</option>
-        </select>
-        <select id="curr-to" class="modern-input rounded-xl p-4 w-full">
-          <option value="SAR" class="bg-slate-900 text-white">SAR — ريال سعودي</option>
-          <option value="USD" class="bg-slate-900 text-white">USD — دولار أمريكي</option>
-          <option value="EGP" class="bg-slate-900 text-white">EGP — جنيه مصري</option>
-        </select>
-      </div>
-      <button onclick="convertCurrency()" class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/25">تحويل الآن</button>
-      <div id="curr-result" class="mt-6 p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hidden text-center"></div>
-    </section>
+        <!-- Calculators Grid Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    <!-- Gold Section -->
-    <section id="gold" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">🪙 حاسبة الذهب اللحظية</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="gold-weight" value="10" placeholder="الوزن (جرام)" class="modern-input rounded-xl p-4 w-full">
-        <select id="gold-karat" class="modern-input rounded-xl p-4 w-full">
-          <option value="24" class="bg-slate-900 text-white">عيار 24</option>
-          <option value="21" class="bg-slate-900 text-white">عيار 21</option>
-          <option value="18" class="bg-slate-900 text-white">عيار 18</option>
-        </select>
-        <select id="gold-currency" onchange="fetchLiveGold()" class="modern-input rounded-xl p-4 w-full">
-          <option value="SAR" class="bg-slate-900 text-white">SAR — ريال سعودي</option>
-          <option value="USD" class="bg-slate-900 text-white">USD — دولار أمريكي</option>
-          <option value="EGP" class="bg-slate-900 text-white">EGP — جنيه مصري</option>
-        </select>
-      </div>
-      <div class="mt-3 text-sm text-amber-400 font-medium" id="gold-live-info">جاري جلب سعر الذهب...</div>
-      <button onclick="calculateGold()" class="mt-6 w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 font-bold py-4 rounded-xl transition-all shadow-lg shadow-amber-500/25">احسب القيمة</button>
-      <div id="gold-result" class="mt-6 p-5 rounded-2xl bg-amber-950/30 border border-amber-500/20 hidden text-center"></div>
-    </section>
+            <!-- 1. Basic Calculator -->
+            <div id="calc-basic" class="calc-card bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+                <h2 class="text-xl font-bold mb-4 text-indigo-400 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>الحاسبة القياسية</span>
+                </h2>
+                <div class="space-y-4">
+                    <input type="text" id="basicDisplay" readonly class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-right text-2xl font-mono text-white focus:outline-none" value="0">
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="clearBasic()" class="p-3 bg-red-500/20 text-red-400 font-bold rounded-lg hover:bg-red-500/30">C</button>
+                        <button onclick="appendBasic('/')" class="p-3 bg-slate-700 text-indigo-400 font-bold rounded-lg hover:bg-slate-600">÷</button>
+                        <button onclick="appendBasic('*')" class="p-3 bg-slate-700 text-indigo-400 font-bold rounded-lg hover:bg-slate-600">×</button>
+                        <button onclick="appendBasic('-')" class="p-3 bg-slate-700 text-indigo-400 font-bold rounded-lg hover:bg-slate-600">-</button>
+                        
+                        <button onclick="appendBasic('7')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">7</button>
+                        <button onclick="appendBasic('8')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">8</button>
+                        <button onclick="appendBasic('9')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">9</button>
+                        <button onclick="appendBasic('+')" class="p-3 bg-slate-700 text-indigo-400 font-bold rounded-lg hover:bg-slate-600">+</button>
+                        
+                        <button onclick="appendBasic('4')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">4</button>
+                        <button onclick="appendBasic('5')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">5</button>
+                        <button onclick="appendBasic('6')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">6</button>
+                        <button onclick="calculateBasic()" class="row-span-2 p-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-500 flex items-center justify-center">=</button>
+                        
+                        <button onclick="appendBasic('1')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">1</button>
+                        <button onclick="appendBasic('2')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">2</button>
+                        <button onclick="appendBasic('3')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">3</button>
+                        
+                        <button onclick="appendBasic('0')" class="col-span-2 p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">0</button>
+                        <button onclick="appendBasic('.')" class="p-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700">.</button>
+                    </div>
+                </div>
+            </div>
 
-    <!-- BMI Section -->
-    <section id="bmi" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">⚖️ حاسبة مؤشر كتلة الجسم (BMI)</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="number" id="bmi-weight" placeholder="الوزن (كجم)" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="bmi-height" placeholder="الطول (سم)" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateBMI()" class="mt-6 w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 font-bold py-4 rounded-xl transition-all shadow-lg shadow-teal-500/25">احسب BMI</button>
-      <div id="bmi-result" class="mt-6 p-5 rounded-2xl bg-teal-950/30 border border-teal-500/20 hidden text-center"></div>
-    </section>
+            <!-- 2. BMI Calculator -->
+            <div id="calc-bmi" class="calc-card bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+                <h2 class="text-xl font-bold mb-4 text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-weight-scale"></i>
+                    <span>مؤشر كتلة الجسم (BMI)</span>
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">الوزن (كجم)</label>
+                        <input type="number" id="bmiWeight" placeholder="مثال: 70" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">الطول (سم)</label>
+                        <input type="number" id="bmiHeight" placeholder="مثال: 175" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <button onclick="calculateBMI()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-600/20">احسب المؤشر</button>
+                    <div id="bmiResult" class="hidden p-4 rounded-xl bg-slate-900/80 border border-slate-700/50 text-center">
+                        <div class="text-2xl font-bold text-emerald-400" id="bmiScore">0</div>
+                        <div class="text-xs text-slate-400 mt-1" id="bmiStatus">-</div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Loan Section -->
-    <section id="loan" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">🏦 حاسبة القروض</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="loan-amount" placeholder="مبلغ القرض" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="loan-rate" placeholder="الفائدة السنوية %" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="loan-years" placeholder="عدد السنوات" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateLoan()" class="mt-6 w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/25">احسب القسط</button>
-      <div id="loan-result" class="mt-6 p-5 rounded-2xl bg-blue-950/30 border border-blue-500/20 hidden text-center"></div>
-    </section>
+            <!-- 3. Loan Calculator -->
+            <div id="calc-loan" class="calc-card bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+                <h2 class="text-xl font-bold mb-4 text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-landmark"></i>
+                    <span>القروض والتمويل</span>
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">مبلغ القرض</label>
+                        <input type="number" id="loanAmount" placeholder="100000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">الفائدة السنوية (%)</label>
+                            <input type="number" id="loanInterest" placeholder="5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">المدة (سنوات)</label>
+                            <input type="number" id="loanYears" placeholder="5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                    <button onclick="calculateLoan()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-amber-600/20">احسب القسط الشهري</button>
+                    <div id="loanResult" class="hidden p-4 rounded-xl bg-slate-900/80 border border-slate-700/50 text-center">
+                        <div class="text-xs text-slate-400">القسط الشهري التقديري</div>
+                        <div class="text-2xl font-bold text-amber-400 my-1" id="monthlyPayment">0</div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Discount Section -->
-    <section id="discount" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">🏷️ حاسبة الخصومات</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="number" id="disc-price" placeholder="السعر الأصلي" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="disc-percent" placeholder="نسبة الخصم %" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateDiscount()" class="mt-6 w-full bg-gradient-to-r from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 font-bold py-4 rounded-xl transition-all shadow-lg shadow-rose-500/25">احسب السعر النهائي</button>
-      <div id="disc-result" class="mt-6 p-5 rounded-2xl bg-rose-950/30 border border-rose-500/20 hidden text-center"></div>
-    </section>
+            <!-- 4. Percentage Calculator -->
+            <div id="calc-percentage" class="calc-card bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+                <h2 class="text-xl font-bold mb-4 text-purple-400 flex items-center gap-2">
+                    <i class="fa-solid fa-percent"></i>
+                    <span>النسب المئوية</span>
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">النسبة المئوية (%)</label>
+                        <input type="number" id="percValue" placeholder="مثال: 15" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">من العدد</label>
+                        <input type="number" id="percTotal" placeholder="مثال: 200" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500">
+                    </div>
+                    <button onclick="calculatePercentage()" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-600/20">احسب الناتج</button>
+                    <div id="percResult" class="hidden p-4 rounded-xl bg-slate-900/80 border border-slate-700/50 text-center">
+                        <div class="text-xs text-slate-400">النتيجة</div>
+                        <div class="text-2xl font-bold text-purple-400 my-1" id="percScore">0</div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Budget Section -->
-    <section id="budget" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">📊 الميزانية الشهريّة</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="number" id="bg-income" placeholder="إجمالي الدخل" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="bg-expenses" placeholder="إجمالي المصاريف" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateBudget()" class="mt-6 w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:from-violet-500 hover:to-fuchsia-400 font-bold py-4 rounded-xl transition-all shadow-lg shadow-violet-500/25">احسب الفائض</button>
-      <div id="budget-result" class="mt-6 p-5 rounded-2xl bg-violet-950/30 border border-violet-500/20 hidden text-center"></div>
-    </section>
+            <!-- 5. Age Calculator -->
+            <div id="calc-age" class="calc-card bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+                <h2 class="text-xl font-bold mb-4 text-sky-400 flex items-center gap-2">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <span>حساب العمر الدقيق</span>
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">تاريخ الميلاد</label>
+                        <input type="date" id="birthDate" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-sky-500">
+                    </div>
+                    <button onclick="calculateAge()" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-sky-600/20">احسب العمر</button>
+                    <div id="ageResult" class="hidden p-4 rounded-xl bg-slate-900/80 border border-slate-700/50 text-center">
+                        <div class="text-lg font-bold text-sky-400" id="ageYears">0 سنة</div>
+                        <div class="text-xs text-slate-400 mt-1" id="ageDetails">-</div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Fuel Section -->
-    <section id="fuel" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">⛽ حاسبة الوقود</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="fuel-dist" placeholder="المسافة (كم)" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="fuel-rate" placeholder="الاستهلاك (لتر/100كم)" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="fuel-price" placeholder="سعر اللتر" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateFuel()" class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/25">احسب التكلفة</button>
-      <div id="fuel-result" class="mt-6 p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hidden text-center"></div>
-    </section>
+        </div>
+    </main>
 
-    <!-- Electricity Section -->
-    <section id="elec" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">⚡ استهلاك الكهرباء</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" id="elec-watts" placeholder="الواط (Watt)" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="elec-hours" placeholder="ساعات التشغيل باليوم" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="elec-price" placeholder="سعر الكيلوواط" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateElec()" class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/25">احسب الفاتورة</button>
-      <div id="elec-result" class="mt-6 p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hidden text-center"></div>
-    </section>
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 mt-12" id="about">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            <p>© 2026 CalcHub. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
-    <!-- Savings Section -->
-    <section id="savings" class="tab-content glass-card p-6 md:p-10 rounded-3xl">
-      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">💰 هدف التوفير</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="number" id="sav-target" placeholder="المبلغ المستهدف" class="modern-input rounded-xl p-4 w-full">
-        <input type="number" id="sav-monthly" placeholder="قيمة التوفير الشهري" class="modern-input rounded-xl p-4 w-full">
-      </div>
-      <button onclick="calculateSavings()" class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/25">احسب المدة</button>
-      <div id="sav-result" class="mt-6 p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hidden text-center"></div>
-    </section>
+    <!-- Logic JavaScript -->
+    <script>
+        // 1. Basic Calculator Logic
+        let basicExpr = '';
+        function appendBasic(val) {
+            const display = document.getElementById('basicDisplay');
+            if (display.value === '0' && val !== '.') {
+                basicExpr = val;
+            } else {
+                basicExpr += val;
+            }
+            display.value = basicExpr;
+        }
 
-  </main>
+        function clearBasic() {
+            basicExpr = '';
+            document.getElementById('basicDisplay').value = '0';
+        }
 
-  <footer class="mt-auto border-t border-white/5 bg-black/20 py-6 text-sm text-slate-500 text-center">
-    <div class="max-w-5xl mx-auto px-4">
-      <p>© 2026 CalcHub. جميع الحقوق محفوظة.</p>
-    </div>
-  </footer>
+        function calculateBasic() {
+            const display = document.getElementById('basicDisplay');
+            try {
+                const result = eval(basicExpr);
+                display.value = Number.isInteger(result) ? result : result.toFixed(4);
+                basicExpr = display.value;
+            } catch (e) {
+                display.value = 'خطأ';
+                basicExpr = '';
+            }
+        }
 
-  <script>
-    let currentGoldGram24Price = 0;
+        // 2. BMI Calculation
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            const height = parseFloat(document.getElementById('bmiHeight').value) / 100;
+            const resultDiv = document.getElementById('bmiResult');
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => {
-        el.className = "tab-btn px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white whitespace-nowrap snap-center transition-all duration-300";
-      });
+            if (weight > 0 && height > 0) {
+                const bmi = (weight / (height * height)).toFixed(1);
+                document.getElementById('bmiScore').innerText = bmi;
+                
+                let status = '';
+                if (bmi < 18.5) status = 'وزن ناقص';
+                else if (bmi < 25) status = 'وزن طبيعي ومثالي';
+                else if (bmi < 30) status = 'زيادة في الوزن';
+                else status = 'سمنة';
 
-      document.getElementById(tabId).classList.add('active');
-      const activeBtn = document.getElementById(`tab-${tabId}`);
-      activeBtn.className = "tab-btn active px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg whitespace-nowrap snap-center transition-all duration-300";
-    }
+                document.getElementById('bmiStatus').innerText = status;
+                resultDiv.classList.remove('hidden');
+            }
+        }
 
-    async function convertCurrency() {
-      const amount = parseFloat(document.getElementById('curr-amount').value);
-      const from = document.getElementById('curr-from').value;
-      const to = document.getElementById('curr-to').value;
-      const resultDiv = document.getElementById('curr-result');
+        // 3. Loan Calculation
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const interest = parseFloat(document.getElementById('loanInterest').value) / 100 / 12;
+            const payments = parseFloat(document.getElementById('loanYears').value) * 12;
 
-      if (!amount || amount <= 0) {
-          resultDiv.innerHTML = `<p class="text-rose-400 font-bold">يرجى إدخال مبلغ صحيح</p>`;
-          resultDiv.classList.remove('hidden');
-          return;
-      }
+            if (amount > 0 && interest > 0 && payments > 0) {
+                const x = Math.pow(1 + interest, payments);
+                const monthly = (amount * x * interest) / (x - 1);
+                
+                document.getElementById('monthlyPayment').innerText = monthly.toFixed(2) + ' $';
+                document.getElementById('loanResult').classList.remove('hidden');
+            }
+        }
 
-      try {
-        const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
-        const data = await res.json();
-        const rate = data.rates[to];
-        const total = (amount * rate).toFixed(2);
+        // 4. Percentage Calculation
+        function calculatePercentage() {
+            const perc = parseFloat(document.getElementById('percValue').value);
+            const total = parseFloat(document.getElementById('percTotal').value);
+            const resultDiv = document.getElementById('percResult');
 
-        resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">${amount} ${from} = <span class="text-indigo-400 text-2xl ml-2">${total} ${to}</span></p>`;
-        resultDiv.classList.remove('hidden');
-      } catch (e) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">حدث خطأ بالاتصال بالخادم</p>`;
-        resultDiv.classList.remove('hidden');
-      }
-    }
+            if (!isNaN(perc) && !isNaN(total)) {
+                const res = (perc / 100) * total;
+                document.getElementById('percScore').innerText = res.toFixed(2);
+                resultDiv.classList.remove('hidden');
+            }
+        }
 
-    async function fetchLiveGold() {
-      const infoDiv = document.getElementById('gold-live-info');
-      const currency = document.getElementById('gold-currency').value;
+        // 5. Age Calculation
+        function calculateAge() {
+            const birthVal = document.getElementById('birthDate').value;
+            const resultDiv = document.getElementById('ageResult');
 
-      try {
-        const goldRes = await fetch('https://api.gold-api.com/price/XAU');
-        const goldData = await goldRes.json();
-        const gramUSD = goldData.price / 31.1035;
+            if (birthVal) {
+                const birthDate = new Date(birthVal);
+                const today = new Date();
 
-        const currRes = await fetch('https://open.er-api.com/v6/latest/USD');
-        const currData = await currRes.json();
-        const rate = currData.rates[currency];
+                let years = today.getFullYear() - birthDate.getFullYear();
+                let months = today.getMonth() - birthDate.getMonth();
+                let days = today.getDate() - birthDate.getDate();
 
-        currentGoldGram24Price = gramUSD * rate;
-        infoDiv.innerText = `السعر اللحظي للجرام عيار 24: ${currentGoldGram24Price.toFixed(2)} ${currency}`;
-      } catch (e) {
-        infoDiv.innerText = "تعذر جلب سعر الذهب المباشر.";
-      }
-    }
+                if (days < 0) {
+                    months--;
+                    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
 
-    function calculateGold() {
-      const weight = parseFloat(document.getElementById('gold-weight').value);
-      const karat = parseFloat(document.getElementById('gold-karat').value);
-      const currency = document.getElementById('gold-currency').value;
-      const resultDiv = document.getElementById('gold-result');
+                document.getElementById('ageYears').innerText = years + ' سنة';
+                document.getElementById('ageDetails').innerText = `${months} شهر و ${days} يوم`;
+                resultDiv.classList.remove('hidden');
+            }
+        }
 
-      if (!weight || !currentGoldGram24Price) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">يرجى إدخال الوزن والانتظار لجلب السعر</p>`;
-        resultDiv.classList.remove('hidden');
-        return;
-      }
-      
-      const total = weight * (currentGoldGram24Price * (karat / 24));
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">الإجمالي: <span class="text-amber-400 text-2xl ml-2">${total.toFixed(2)} ${currency}</span></p>`;
-      resultDiv.classList.remove('hidden');
-    }
+        // Switch Tabs Logic
+        function switchTab(btn, tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white', 'shadow-lg', 'shadow-indigo-600/30');
+                b.classList.add('bg-slate-800', 'text-slate-300');
+            });
 
-    function calculateBMI() {
-      const w = parseFloat(document.getElementById('bmi-weight').value);
-      const h = parseFloat(document.getElementById('bmi-height').value) / 100;
-      const resultDiv = document.getElementById('bmi-result');
-      
-      if (!w || !h) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل بيانات صحيحة</p>`;
-        resultDiv.classList.remove('hidden');
-        return;
-      }
-      
-      const bmi = (w / (h * h)).toFixed(1);
-      let status = "";
-      if(bmi < 18.5) status = "نقص في الوزن";
-      else if(bmi < 25) status = "وزن طبيعي";
-      else if(bmi < 30) status = "زيادة في الوزن";
-      else status = "سمنة";
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+            btn.classList.add('bg-indigo-600', 'text-white', 'shadow-lg', 'shadow-indigo-600/30');
 
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">المؤشر: <span class="text-teal-400 text-2xl ml-2">${bmi}</span></p><p class="text-slate-400 mt-2">${status}</p>`;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateLoan() {
-      const P = parseFloat(document.getElementById('loan-amount').value);
-      const r = (parseFloat(document.getElementById('loan-rate').value) / 100) / 12;
-      const n = parseFloat(document.getElementById('loan-years').value) * 12;
-      const resultDiv = document.getElementById('loan-result');
-      
-      if (!P || !r || !n) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل كافة البيانات</p>`;
-        resultDiv.classList.remove('hidden');
-        return;
-      }
-      
-      const m = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-      const totalPaid = m * n;
-      
-      resultDiv.innerHTML = `
-        <p class="font-bold text-xl text-slate-200">القسط الشهري: <span class="text-blue-400 text-2xl ml-2">${m.toFixed(2)}</span></p>
-        <p class="text-slate-400 mt-2">إجمالي ما ستدفعه: ${totalPaid.toFixed(2)}</p>
-      `;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateDiscount() {
-      const p = parseFloat(document.getElementById('disc-price').value);
-      const d = parseFloat(document.getElementById('disc-percent').value);
-      const resultDiv = document.getElementById('disc-result');
-      
-      if (!p || isNaN(d)) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل البيانات كاملة</p>`;
-        resultDiv.classList.remove('hidden');
-        return;
-      }
-      
-      const finalP = p - (p * d / 100);
-      const saved = p - finalP;
-      
-      resultDiv.innerHTML = `
-        <p class="font-bold text-xl text-slate-200">السعر النهائي: <span class="text-rose-400 text-2xl ml-2">${finalP.toFixed(2)}</span></p>
-        <p class="text-slate-400 mt-2">قيمة التوفير: ${saved.toFixed(2)}</p>
-      `;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateBudget() {
-      const inc = parseFloat(document.getElementById('bg-income').value);
-      const exp = parseFloat(document.getElementById('bg-expenses').value);
-      const resultDiv = document.getElementById('budget-result');
-      
-      if (isNaN(inc) || isNaN(exp)) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل البيانات</p>`;
-        resultDiv.classList.remove('hidden');
-        return;
-      }
-      
-      const diff = inc - exp;
-      const color = diff >= 0 ? 'text-emerald-400' : 'text-rose-400';
-      
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">الصافي: <span class="${color} text-2xl ml-2">${diff.toFixed(2)}</span></p>`;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateFuel() {
-      const dist = parseFloat(document.getElementById('fuel-dist').value);
-      const rate = parseFloat(document.getElementById('fuel-rate').value);
-      const price = parseFloat(document.getElementById('fuel-price').value);
-      const resultDiv = document.getElementById('fuel-result');
-      if (isNaN(dist) || isNaN(rate) || isNaN(price)) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل البيانات</p>`;
-        resultDiv.classList.remove('hidden'); return;
-      }
-      const cost = (dist / 100) * rate * price;
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">التكلفة: <span class="text-indigo-400 text-2xl ml-2">${cost.toFixed(2)}</span></p>`;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateElec() {
-      const w = parseFloat(document.getElementById('elec-watts').value);
-      const h = parseFloat(document.getElementById('elec-hours').value);
-      const p = parseFloat(document.getElementById('elec-price').value);
-      const resultDiv = document.getElementById('elec-result');
-      if (isNaN(w) || isNaN(h) || isNaN(p)) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل البيانات</p>`;
-        resultDiv.classList.remove('hidden'); return;
-      }
-      const cost = ((w * h) / 1000) * 30 * p;
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">التكلفة الشهرية: <span class="text-indigo-400 text-2xl ml-2">${cost.toFixed(2)}</span></p>`;
-      resultDiv.classList.remove('hidden');
-    }
-
-    function calculateSavings() {
-      const target = parseFloat(document.getElementById('sav-target').value);
-      const monthly = parseFloat(document.getElementById('sav-monthly').value);
-      const resultDiv = document.getElementById('sav-result');
-      if (isNaN(target) || isNaN(monthly) || monthly <= 0) {
-        resultDiv.innerHTML = `<p class="text-rose-400 font-bold">أدخل بيانات صحيحة</p>`;
-        resultDiv.classList.remove('hidden'); return;
-      }
-      const months = Math.ceil(target / monthly);
-      resultDiv.innerHTML = `<p class="font-bold text-xl text-slate-200">المدة المطلوبة: <span class="text-indigo-400 text-2xl ml-2">${months} شهراً</span></p>`;
-      resultDiv.classList.remove('hidden');
-    }
-
-    window.addEventListener('DOMContentLoaded', fetchLiveGold);
-  </script>
+            const cards = document.querySelectorAll('.calc-card');
+            cards.forEach(card => {
+                if (tab === 'all' || card.id === `calc-${tab}`) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
