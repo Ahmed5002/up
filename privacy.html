@@ -1,38 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Hermes Engine</title>
+    <title>سياسة الخصوصية — CalcHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 30px; max-width: 800px; margin: 0 auto; color: #333; }
-        h1, h2 { color: #111; }
-        hr { margin: 30px 0; border: 0; border-top: 1px solid #eee; }
+        :root {
+            --primary-color: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-secondary: #4B5563;
+            --border-color: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .content-section ul {
+            list-style-type: disc;
+            padding-right: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .content-card { padding: 20px; }
+            .page-header h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p>Last updated: 2026</p>
 
-    <h2>1. Information Collection</h2>
-    <p>We do not collect personal identifyable information. We only process automated data strictly necessary for application workflow management and pin automation.</p>
+    <div class="container">
+        <header class="page-header">
+            <h1>سياسة الخصوصية</h1>
+            <p>آخر تحديث: سبتمبر 2026</p>
+        </header>
 
-    <h2>2. Data Usage</h2>
-    <p>Data retrieved via Pinterest API is exclusively used to post and organize home decor ideas on user-authorized boards.</p>
+        <main class="content-card">
+            
+            <section class="content-section">
+                <h2>1. مقدمة</h2>
+                <p>نحن نولي أهمية كبرى لخصوصية زوارنا. توضح سياسة الخصوصية هذه أنواع المعلومات الشخصية التي نجمعها وكيفية استخدامها لحماية بياناتك أثناء استخدامك لموقعنا.</p>
+            </section>
 
-    <h2>3. Data Protection & Opt-Out</h2>
-    <p>We do not sell, share, or store personal user data on external servers. You can revoke application access at any time through your Pinterest account settings.</p>
+            <section class="content-section">
+                <h2>2. المعلومات التي نجمعها</h2>
+                <p>قد نقوم بجمع المعلومات التالية عند زيارتك للموقع:</p>
+                <ul>
+                    <li>معلومات الاتصال (مثل الاسم وعنوان البريد الإلكتروني) عند التسجيل أو التواصل معنا.</li>
+                    <li>بيانات الاستخدام والتحليلات (مثل عنوان IP، نوع المتصفح، والصفحات التي قمت بزيارتها) لتحسين تجربة المستخدم.</li>
+                </ul>
+            </section>
 
-    <hr>
+            <section class="content-section">
+                <h2>3. كيف نستخدم معلوماتك</h2>
+                <p>نستخدم المعلومات التي نجمعها للأغراض التالية:</p>
+                <ul>
+                    <li>تشغيل الموقع وصيانته وتحسين أدائه.</li>
+                    <li>فهم وتحليل كيفية استخدامك للموقع لتطوير خدمات جديدة.</li>
+                    <li>التواصل معك، سواء مباشرة أو من خلال أحد شركائنا، بما في ذلك خدمة العملاء وتوفير التحديثات.</li>
+                </ul>
+            </section>
 
-    <h1>سياسة الخصوصية</h1>
-    <h2>1. المعلومات التي نجمعها</h2>
-    <p>نحن لا نجمع أي بيانات شخصية معقدة. يتم معالجة البيانات العامة فقط لضمان تشغيل التطبيق وإدارة المحتوى بشكل صحيح.</p>
+            <section class="content-section">
+                <h2>4. ملفات تعريف الارتباط (Cookies)</h2>
+                <p>يستخدم موقعنا "ملفات تعريف الارتباط" لتخزين المعلومات حول تفضيلات الزوار، ولتخصيص محتوى صفحة الويب استناداً إلى نوع متصفح الزائر أو المعلومات الأخرى التي يرسلها الزائر عبر متصفحه.</p>
+            </section>
 
-    <h2>2. استخدام البيانات</h2>
-    <p>تُستخدم البيانات المحفوظة فقط لضمان تشغيل الخدمات والتطبيقات المرتبطة بالموقع بشكل صحيح.</p>
+            <section class="content-section">
+                <h2>5. التعديلات على سياسة الخصوصية</h2>
+                <p>نحتفظ بالحق في تحديث أو تغيير سياسة الخصوصية الخاصة بنا في أي وقت. يُنصح بمراجعة هذه الصفحة بشكل دوري للوقوف على أي تغييرات. تسري التغييرات فور نشرها على هذه الصفحة.</p>
+            </section>
 
-    <h2>3. حقوق المستخدم</h2>
-    <p>يحق لك في أي وقت التوقف عن استخدام الخدمات والتواصل معنا لأي استفسار يتعلق بالخصوصية.</p>
+            <section class="content-section">
+                <h2>6. اتصل بنا</h2>
+                <p>إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه، يُرجى التواصل معنا عبر البريد الإلكتروني.</p>
+            </section>
+
+            <a href="/" class="back-button">العودة إلى الصفحة الرئيسية</a>
+        </main>
+    </div>
+
 </body>
 </html>
